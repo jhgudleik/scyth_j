@@ -149,10 +149,7 @@ repo_id="Cyrilos/scyth_5_cpu_int8"
 - **Вопросы**: Открывайте `Issues` в репозитории.
 ---
 
-**English Version**
----
-
-## **Project Description**
+# **English Version of Project Description**
 ![Python 3.11.9](https://img.shields.io/badge/python-3.11.9-blue)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
@@ -165,8 +162,6 @@ SCYTH-J enables:
 - Analysis of Japanese text to determine its thematic content.
 - Comparison of texts against reference category vectors.
 - Adding/removing reference samples.
-
-![SCYTH-J Interface Demo](app.gif)
 
 ---
 
