@@ -155,8 +155,7 @@ repo_id="Cyrilos/scyth_5_cpu_int8"
 ![Python 3.11.9](https://img.shields.io/badge/python-3.11.9-blue)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
-**SCYTH-J** is a **neural network-based web application** for classifying Japanese texts into user-defined dynamic topics. The system uses a **quantized teacher-trained deep learning model** and **natural language processing (NLP) techniques** to analyze and categorize texts.
-
+**SCYTH-J** is a **neural network-based web application** for classifying Japanese texts into user-defined dynamic topics. The system uses a **quantized supervised trained deep learning model** and **natural language processing (NLP) techniques** to analyze and categorize texts.
 ---
 
 ## **📌 Overview**
