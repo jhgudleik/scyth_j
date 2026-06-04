@@ -5,7 +5,7 @@ chcp 65001 >nul 2>&1
 :: Проверяем Python
 python --version >nul 2>&1
 if %errorlevel% neq 0 (
-    echo Ошибка: Python не найден. Установите его с https://www.python.org/downloads/
+    echo Error: Python not found. Install it from https://www.python.org/downloads/
     pause
     exit /b 1
 )
@@ -15,17 +15,17 @@ if not exist "scyth_j_venv" (
     echo Creating virtual environment...
     python -m venv scyth_j_venv
     if %errorlevel% neq 0 (
-        echo Ошибка при создании venv.
+        echo Error when creating venv.
         pause
         exit /b 1
     )
 ) else (
-    echo Виртуальное окружение уже существует.
+    echo Virtual environment already exists.
 )
 
 :: Активируем venv (используем activate.bat, а не просто activate)
 call scyth_j_venv\Scripts\activate.bat || (
-    echo Ошибка: Не удалось активировать venv.
+    echo Error: Failed to activate venv.
     pause
     exit /b 1
 )
@@ -42,20 +42,20 @@ set "REQ_FILE=requirements.txt"
 
 if exist "%REQ_FILE%" (
 
-    echo Найден файл requirements.txt.
+    echo Found requirements.txt file.
     echo.
 
     if "%LOG_INSTALL%"=="1" (
         echo Установка зависимостей ^(лог: install_log.txt^)...
         pip install -r "%REQ_FILE%" --upgrade > install_log.txt 2>&1
     ) else (
-        echo Установка зависимостей...
+        echo Installing dependencies...
         pip install -r "%REQ_FILE%" --upgrade
     )
 
     if %errorlevel% neq 0 (
         echo.
-        echo Ошибка при установке зависимостей.
+        echo Error occurred during dependency installation.
         if "%LOG_INSTALL%"=="1" (
             echo Проверьте файл install_log.txt
         )
@@ -64,8 +64,8 @@ if exist "%REQ_FILE%" (
     )
 
 ) else (
-    echo Ошибка: Файл requirements.txt не найден в текущей папке.
-    echo Проверьте, что скрипт запускается из корректной директории.
+    echo Error: requirements.txt file not found in current directory.
+    echo Check that the script is running from the correct directory.
     pause
     exit /b 1
 )
@@ -73,25 +73,21 @@ if exist "%REQ_FILE%" (
 if exist ".gitignore" (
     findstr /i /c:"scyth_j_venv" ".gitignore" >nul
     if %errorlevel% equ 0 (
-        echo scyth_j_venv уже в .gitignore.
+        echo scyth_j_venv already in .gitignore.
     ) else (
-        echo Добавляем scyth_j_venv в .gitignore...
+        echo Adding scyth_j_venv to .gitignore...
         echo scyth_j_venv >> .gitignore
     )
 ) else (
-    echo Создаем .gitignore и добавляем scyth_j_venv...
+    echo Creating .gitignore and adding scyth_j_venv...
     echo scyth_j_venv > .gitignore
 )
 
-echo Готово!
-echo Активированное окружение: scyth_j_venv
-echo Текущие пакеты:
+echo Done!
+echo Activated environment: scyth_j_venv
+echo Current packages:
 pip list
 
-echo Готово!
-echo Активированное окружение: scyth_j_venv
-echo Текущие пакеты:
-pip list
 
 :: =========================================================
 :: СКАЧИВАНИЕ МОДЕЛИ
@@ -101,16 +97,16 @@ set "MODEL_DOWNLOADER=download_model.py"
 
 if exist "%MODEL_DOWNLOADER%" (
     echo.
-    echo Проверка наличия модели...
+    echo Checking model availability...
     python "%MODEL_DOWNLOADER%"
 
     if %errorlevel% neq 0 (
-        echo Ошибка при скачивании модели.
+        echo Error downloading the model.
         pause
         exit /b 1
     )
 ) else (
-    echo Ошибка: файл %MODEL_DOWNLOADER% не найден.
+    echo Error: file %MODEL_DOWNLOADER% not found.
     pause
     exit /b 1
 )
@@ -123,18 +119,18 @@ set "APP_FILE=app.py"
 
 if exist "%APP_FILE%" (
     echo.
-    echo Запуск приложения app.py...
+    echo Running application app.py...
     python "%APP_FILE%"
 
     if %errorlevel% neq 0 (
-        echo Ошибка при запуске приложения app.py
+        echo Error running application app.py
         pause
         exit /b 1
     )
 ) else (
-    echo Предупреждение: Файл app.py не найден.
+    echo Warning: app.py file not found.
 )
 
 echo.
-echo Нажмите любую клавишу для выхода...
+echo Press any key to exit...
 pause >nul
