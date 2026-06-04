@@ -1,6 +1,8 @@
 # SCYTH-J: Smart Classification of Your Texts in Japanese
 
-[![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
+
+# Проект на Python
+![Рекомендуемая версия: Python 3.11.9](https://img.shields.io/badge/python-3.11.9-blue)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
 **SCYTH-J** — это веб-приложение на основе нейронных сетей для классификации японских текстов в заданные категории. Проект использует квантовый моделирование и методы обработки естественного языка для анализа и рубрицирования текстов.
@@ -12,22 +14,23 @@ SCYTH-J позволяет:
 - Анализировать японский текст и определять его тематику.
 - Сравнивать тексты с эталонными векторами категорий.
 - Добавлять/удалять эталонные образцы.
-- Настраивать порог сходства и параметры классификации.
+
+  ![Интерфейс SCYTH-J](app.gif)
 
 ---
 
 ## 🚀 Установка
 
 ### **Требования**
-- Python 3.9 или выше
+- Python 3.11.9
 - Виртуальное окружение (`venv`)
-- 1.5+ ГБ свободного места (для модели)
+- 3.2+ ГБ свободного места (для модели)
 
 ### **Инструкция по установке**
 
 1. **Склонируйте репозиторий**:
    ```bash
-   git clone https://github.com/your-repo/scyth-j.git
+   git clone https://github.com/jhgudleik/scyth_j.git
    cd scyth-j
    ```
 
@@ -49,21 +52,30 @@ SCYTH-J позволяет:
    pip install -r requirements.txt
    ```
 
-4. **Скачайте модель** (произойдет автоматически при первом запуске).
-   
+4. **Скачайте модель**.
+По адресу:   https://huggingface.co/Cyrilos/scyth_5_cpu_int8/
 5. **Запустите приложение**:
    ```bash
    python app.py
    ```
    Приложение откроется в браузере по адресу `http://127.0.0.1:port`.
 
+6. **Используйте .bat файл**:
+Дважды щелкните по init.bat. При первом запуске скачается модель, будут установленны зависимости и запустится приложение в окне браузера.
+При последующи запусках будет приложение так же будет открываться в окне браузера.
+
+
+
 ---
 
 ## 📂 Структура проекта
 
 ```
+
 scyth-j/
 │
+├── app.gif                  # Демо
+├── init.bat                 # Установка зависимостей, скачивание модели и запуск приложения
 ├── scyth.png                # Логотип приложения
 ├── standard/                # Каталог эталонных данных
 │   ├── vectors.txt          # Список векторов категорий
@@ -84,7 +96,7 @@ scyth-j/
 ## 🛠 Использование
 
 ### **Вкладка "Рубрикатор"**
-1. Введите японский текст в поле `Новый текст`.
+1. Введите японский текст в поле `Новый текст` или выберите файл.
 2. Нажмите кнопку **Рубрицировать**.
 3. Приложение выведет список найденных категорий с вероятностью совпадения.
    
@@ -113,7 +125,7 @@ scyth-j/
 ---
 
 ## 🔄 Скачивание модели
-Модель `scyth_5_cpu_int8.pth` скачивается автоматически при первом запуске из репозитория Hugging Face:
+Модель `scyth_5_cpu_int8.pth` скачивается автоматически при первом запуске init.bat из репозитория Hugging Face:
 ```bash
 repo_id="Cyrilos/scyth_5_cpu_int8"
 ```
@@ -128,25 +140,22 @@ repo_id="Cyrilos/scyth_5_cpu_int8"
 Проект распространяется под лицензией **MIT**. См. файл `LICENSE` для деталей.
 
 ---
-
 ## 📢 Контакты
-- **Авторы**: [Cyrilos](https://huggingface.co/Cyrilos)
-- **GitHub**: [your-repo-link](https://github.com/your-repo/scyth-j)
+- **Автор**: [Cyrilos](https://huggingface.co/Cyrilos)
+- **Почта**: 📧 [jhgudleik@gmail.com]
+- **GitHub**: [scyth-j-repo-link](https://github.com/jhgudleik/scyth_j)
 - **Вопросы**: Открывайте `Issues` в репозитории.
-
+---
+tags:
+  - [nlp](https://github.com/topics/nlp)
+  - [japanese](https://github.com/topics/japanese)
+  - [multilabel](https://github.com/topics/multilabel-classification)
+  - [pytorch](https://github.com/topics/pytorch)
+  - [quantization](https://github.com/topics/quantization)
+  - [cpu](https://github.com/topics/cpu)
+  - [semantic-search](https://github.com/topics/semantic-search)
+  - [wikipedia](https://github.com/topics/wikipedia)
+  - [knowledge-graph](https://github.com/topics/knowledge-graph)
+  - [embedding](https://github.com/topics/embedding)
 ---
 © 2024 SCYTH-J. Все права защищены.
-```
-
----
-
-### Ключевые улучшения README:
-1. **Четкая структура**: Разделы по установке, использованию и настройкам.
-2. **Визуальные элементы**: Badges с версией Python и лицензией.
-3. **Инструкции с скриншотами** (можно добавить примеры скринов интерфейса).
-4. **Технические детали**: Поддержка квантовой модели и параметры `<TOP_K>`.
-5. **Лицензия MIT**: Указана в шапке.
-### Дополнительно:
-- Если хотите, добавьте скриншоты интерфейса (кнопки, таблица категорий) с помощью Markdown-синтаксиса:
-  ```markdown
-  ![Интерфейс SCYTH-J](https://example.com/screenshot.png)
