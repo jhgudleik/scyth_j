@@ -12,7 +12,7 @@ if %errorlevel% neq 0 (
 
 :: Создаем venv (если его нет)
 if not exist "scyth_j_venv" (
-    echo Создание виртуального окружения...
+    echo Creating virtual environment...
     python -m venv scyth_j_venv
     if %errorlevel% neq 0 (
         echo Ошибка при создании venv.
