@@ -221,8 +221,11 @@ SCYTH-J enables:
 ```
 scyth-j/
 │
+├── app.py                   # Main application script
 ├── app.gif                  # Demo screenshot
+├── download_model.py        # Script to download the model
 ├── init.bat                 # Automates setup, model download, and app launch
+├── init.gif                 # Demo screenshot of setup and initialization progress
 ├── scyth.png                # Project logo
 ├── standard/                # User-defined reference data (populated by users)
 ├── standard_test/           # Demo sample directory (mirrors structure of `standard/`)
@@ -233,8 +236,6 @@ scyth-j/
 │
 ├── requirements.txt         # Python dependencies
 ├── scyth_5_cpu_int8.pth     # Quantized model (auto-downloaded)
-├── app.py                   # Main application script
-├── download_model.py        # Script to download the model
 ├── README.md                # This file
 └── LICENSE                  # MIT License
 ```
