@@ -1,140 +1,140 @@
 @echo off
 chcp 65001 >nul 2>&1
-:: Ð Ð°Ð±Ð¾Ñ‚Ð°ÐµÐ¼ Ñ Ñ‚ÐµÐºÑƒÑ‰ÐµÐ¹ Ð¿Ð°Ð¿ÐºÐ¾Ð¹ (Ð³Ð´Ðµ Ð»ÐµÐ¶Ð¸Ñ‚ ÑÐºÑ€Ð¸Ð¿Ñ‚)
+:: Ðàáîòàåì ñ òåêóùåé ïàïêîé (ãäå ëåæèò ñêðèïò)
 
-:: ÐŸÑ€Ð¾Ð²ÐµÑ€ÑÐµÐ¼ Python
+:: Ïðîâåðÿåì Python
 python --version >nul 2>&1
 if %errorlevel% neq 0 (
-    echo ÐžÑˆÐ¸Ð±ÐºÐ°: Python Ð½Ðµ Ð½Ð°Ð¹Ð´ÐµÐ½. Ð£ÑÑ‚Ð°Ð½Ð¾Ð²Ð¸Ñ‚Ðµ ÐµÐ³Ð¾ Ñ https://www.python.org/downloads/
+    echo Îøèáêà: Python íå íàéäåí. Óñòàíîâèòå åãî ñ https://www.python.org/downloads/
     pause
     exit /b 1
 )
 
-:: Ð¡Ð¾Ð·Ð´Ð°ÐµÐ¼ venv (ÐµÑÐ»Ð¸ ÐµÐ³Ð¾ Ð½ÐµÑ‚)
+:: Ñîçäàåì venv (åñëè åãî íåò)
 if not exist "scyth_j_venv" (
-    echo Ð¡Ð¾Ð·Ð´Ð°Ð½Ð¸Ðµ Ð²Ð¸Ñ€Ñ‚ÑƒÐ°Ð»ÑŒÐ½Ð¾Ð³Ð¾ Ð¾ÐºÑ€ÑƒÐ¶ÐµÐ½Ð¸Ñ...
+    echo Ñîçäàíèå âèðòóàëüíîãî îêðóæåíèÿ...
     python -m venv scyth_j_venv
     if %errorlevel% neq 0 (
-        echo ÐžÑˆÐ¸Ð±ÐºÐ° Ð¿Ñ€Ð¸ ÑÐ¾Ð·Ð´Ð°Ð½Ð¸Ð¸ venv.
+        echo Îøèáêà ïðè ñîçäàíèè venv.
         pause
         exit /b 1
     )
 ) else (
-    echo Ð’Ð¸Ñ€Ñ‚ÑƒÐ°Ð»ÑŒÐ½Ð¾Ðµ Ð¾ÐºÑ€ÑƒÐ¶ÐµÐ½Ð¸Ðµ ÑƒÐ¶Ðµ ÑÑƒÑ‰ÐµÑÑ‚Ð²ÑƒÐµÑ‚.
+    echo Âèðòóàëüíîå îêðóæåíèå óæå ñóùåñòâóåò.
 )
 
-:: ÐÐºÑ‚Ð¸Ð²Ð¸Ñ€ÑƒÐµÐ¼ venv (Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼ activate.bat, Ð° Ð½Ðµ Ð¿Ñ€Ð¾ÑÑ‚Ð¾ activate)
+:: Àêòèâèðóåì venv (èñïîëüçóåì activate.bat, à íå ïðîñòî activate)
 call scyth_j_venv\Scripts\activate.bat || (
-    echo ÐžÑˆÐ¸Ð±ÐºÐ°: ÐÐµ ÑƒÐ´Ð°Ð»Ð¾ÑÑŒ Ð°ÐºÑ‚Ð¸Ð²Ð¸Ñ€Ð¾Ð²Ð°Ñ‚ÑŒ venv.
+    echo Îøèáêà: Íå óäàëîñü àêòèâèðîâàòü venv.
     pause
     exit /b 1
 )
 
 :: =========================================================
-:: Ð£Ð¡Ð¢ÐÐÐžÐ’ÐšÐ Ð—ÐÐ’Ð˜Ð¡Ð˜ÐœÐžÐ¡Ð¢Ð•Ð™
+:: ÓÑÒÀÍÎÂÊÀ ÇÀÂÈÑÈÌÎÑÒÅÉ
 :: =========================================================
 
-:: 0 = Ð¿Ð¾ÐºÐ°Ð·Ñ‹Ð²Ð°Ñ‚ÑŒ ÑƒÑÑ‚Ð°Ð½Ð¾Ð²ÐºÑƒ Ð² ÐºÐ¾Ð½ÑÐ¾Ð»Ð¸
-:: 1 = Ð¿Ð¸ÑÐ°Ñ‚ÑŒ Ñ‚Ð¾Ð»ÑŒÐºÐ¾ Ð² install_log.txt
+:: 0 = ïîêàçûâàòü óñòàíîâêó â êîíñîëè
+:: 1 = ïèñàòü òîëüêî â install_log.txt
 set "LOG_INSTALL=0"
 
 set "REQ_FILE=requirements.txt"
 
 if exist "%REQ_FILE%" (
 
-    echo ÐÐ°Ð¹Ð´ÐµÐ½ Ñ„Ð°Ð¹Ð» requirements.txt.
+    echo Íàéäåí ôàéë requirements.txt.
     echo.
 
     if "%LOG_INSTALL%"=="1" (
-        echo Ð£ÑÑ‚Ð°Ð½Ð¾Ð²ÐºÐ° Ð·Ð°Ð²Ð¸ÑÐ¸Ð¼Ð¾ÑÑ‚ÐµÐ¹ ^(Ð»Ð¾Ð³: install_log.txt^)...
+        echo Óñòàíîâêà çàâèñèìîñòåé ^(ëîã: install_log.txt^)...
         pip install -r "%REQ_FILE%" --upgrade > install_log.txt 2>&1
     ) else (
-        echo Ð£ÑÑ‚Ð°Ð½Ð¾Ð²ÐºÐ° Ð·Ð°Ð²Ð¸ÑÐ¸Ð¼Ð¾ÑÑ‚ÐµÐ¹...
+        echo Óñòàíîâêà çàâèñèìîñòåé...
         pip install -r "%REQ_FILE%" --upgrade
     )
 
     if %errorlevel% neq 0 (
         echo.
-        echo ÐžÑˆÐ¸Ð±ÐºÐ° Ð¿Ñ€Ð¸ ÑƒÑÑ‚Ð°Ð½Ð¾Ð²ÐºÐµ Ð·Ð°Ð²Ð¸ÑÐ¸Ð¼Ð¾ÑÑ‚ÐµÐ¹.
+        echo Îøèáêà ïðè óñòàíîâêå çàâèñèìîñòåé.
         if "%LOG_INSTALL%"=="1" (
-            echo ÐŸÑ€Ð¾Ð²ÐµÑ€ÑŒÑ‚Ðµ Ñ„Ð°Ð¹Ð» install_log.txt
+            echo Ïðîâåðüòå ôàéë install_log.txt
         )
         pause
         exit /b 1
     )
 
 ) else (
-    echo ÐžÑˆÐ¸Ð±ÐºÐ°: Ð¤Ð°Ð¹Ð» requirements.txt Ð½Ðµ Ð½Ð°Ð¹Ð´ÐµÐ½ Ð² Ñ‚ÐµÐºÑƒÑ‰ÐµÐ¹ Ð¿Ð°Ð¿ÐºÐµ.
-    echo ÐŸÑ€Ð¾Ð²ÐµÑ€ÑŒÑ‚Ðµ, Ñ‡Ñ‚Ð¾ ÑÐºÑ€Ð¸Ð¿Ñ‚ Ð·Ð°Ð¿ÑƒÑÐºÐ°ÐµÑ‚ÑÑ Ð¸Ð· ÐºÐ¾Ñ€Ñ€ÐµÐºÑ‚Ð½Ð¾Ð¹ Ð´Ð¸Ñ€ÐµÐºÑ‚Ð¾Ñ€Ð¸Ð¸.
+    echo Îøèáêà: Ôàéë requirements.txt íå íàéäåí â òåêóùåé ïàïêå.
+    echo Ïðîâåðüòå, ÷òî ñêðèïò çàïóñêàåòñÿ èç êîððåêòíîé äèðåêòîðèè.
     pause
     exit /b 1
 )
-:: ÐÐ°ÑÑ‚Ñ€Ð°Ð¸Ð²Ð°ÐµÐ¼ .gitignore
+:: Íàñòðàèâàåì .gitignore
 if exist ".gitignore" (
     findstr /i /c:"scyth_j_venv" ".gitignore" >nul
     if %errorlevel% equ 0 (
-        echo scyth_j_venv ÑƒÐ¶Ðµ Ð² .gitignore.
+        echo scyth_j_venv óæå â .gitignore.
     ) else (
-        echo Ð”Ð¾Ð±Ð°Ð²Ð»ÑÐµÐ¼ scyth_j_venv Ð² .gitignore...
+        echo Äîáàâëÿåì scyth_j_venv â .gitignore...
         echo scyth_j_venv >> .gitignore
     )
 ) else (
-    echo Ð¡Ð¾Ð·Ð´Ð°ÐµÐ¼ .gitignore Ð¸ Ð´Ð¾Ð±Ð°Ð²Ð»ÑÐµÐ¼ scyth_j_venv...
+    echo Ñîçäàåì .gitignore è äîáàâëÿåì scyth_j_venv...
     echo scyth_j_venv > .gitignore
 )
 
-echo Ð“Ð¾Ñ‚Ð¾Ð²Ð¾!
-echo ÐÐºÑ‚Ð¸Ð²Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð½Ð¾Ðµ Ð¾ÐºÑ€ÑƒÐ¶ÐµÐ½Ð¸Ðµ: scyth_j_venv
-echo Ð¢ÐµÐºÑƒÑ‰Ð¸Ðµ Ð¿Ð°ÐºÐµÑ‚Ñ‹:
+echo Ãîòîâî!
+echo Àêòèâèðîâàííîå îêðóæåíèå: scyth_j_venv
+echo Òåêóùèå ïàêåòû:
 pip list
 
-echo Ð“Ð¾Ñ‚Ð¾Ð²Ð¾!
-echo ÐÐºÑ‚Ð¸Ð²Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð½Ð¾Ðµ Ð¾ÐºÑ€ÑƒÐ¶ÐµÐ½Ð¸Ðµ: scyth_j_venv
-echo Ð¢ÐµÐºÑƒÑ‰Ð¸Ðµ Ð¿Ð°ÐºÐµÑ‚Ñ‹:
+echo Ãîòîâî!
+echo Àêòèâèðîâàííîå îêðóæåíèå: scyth_j_venv
+echo Òåêóùèå ïàêåòû:
 pip list
 
 :: =========================================================
-:: Ð¡ÐšÐÐ§Ð˜Ð’ÐÐÐ˜Ð• ÐœÐžÐ”Ð•Ð›Ð˜
+:: ÑÊÀ×ÈÂÀÍÈÅ ÌÎÄÅËÈ
 :: =========================================================
 
 set "MODEL_DOWNLOADER=download_model.py"
 
 if exist "%MODEL_DOWNLOADER%" (
     echo.
-    echo ÐŸÑ€Ð¾Ð²ÐµÑ€ÐºÐ° Ð½Ð°Ð»Ð¸Ñ‡Ð¸Ñ Ð¼Ð¾Ð´ÐµÐ»Ð¸...
+    echo Ïðîâåðêà íàëè÷èÿ ìîäåëè...
     python "%MODEL_DOWNLOADER%"
 
     if %errorlevel% neq 0 (
-        echo ÐžÑˆÐ¸Ð±ÐºÐ° Ð¿Ñ€Ð¸ ÑÐºÐ°Ñ‡Ð¸Ð²Ð°Ð½Ð¸Ð¸ Ð¼Ð¾Ð´ÐµÐ»Ð¸.
+        echo Îøèáêà ïðè ñêà÷èâàíèè ìîäåëè.
         pause
         exit /b 1
     )
 ) else (
-    echo ÐžÑˆÐ¸Ð±ÐºÐ°: Ñ„Ð°Ð¹Ð» %MODEL_DOWNLOADER% Ð½Ðµ Ð½Ð°Ð¹Ð´ÐµÐ½.
+    echo Îøèáêà: ôàéë %MODEL_DOWNLOADER% íå íàéäåí.
     pause
     exit /b 1
 )
 
 :: =========================================================
-:: Ð—ÐÐŸÐ£Ð¡Ðš ÐŸÐ Ð˜Ð›ÐžÐ–Ð•ÐÐ˜Ð¯
+:: ÇÀÏÓÑÊ ÏÐÈËÎÆÅÍÈß
 :: =========================================================
 
 set "APP_FILE=app.py"
 
 if exist "%APP_FILE%" (
     echo.
-    echo Ð—Ð°Ð¿ÑƒÑÐº Ð¿Ñ€Ð¸Ð»Ð¾Ð¶ÐµÐ½Ð¸Ñ app.py...
+    echo Çàïóñê ïðèëîæåíèÿ app.py...
     python "%APP_FILE%"
 
     if %errorlevel% neq 0 (
-        echo ÐžÑˆÐ¸Ð±ÐºÐ° Ð¿Ñ€Ð¸ Ð·Ð°Ð¿ÑƒÑÐºÐµ Ð¿Ñ€Ð¸Ð»Ð¾Ð¶ÐµÐ½Ð¸Ñ app.py
+        echo Îøèáêà ïðè çàïóñêå ïðèëîæåíèÿ app.py
         pause
         exit /b 1
     )
 ) else (
-    echo ÐŸÑ€ÐµÐ´ÑƒÐ¿Ñ€ÐµÐ¶Ð´ÐµÐ½Ð¸Ðµ: Ð¤Ð°Ð¹Ð» app.py Ð½Ðµ Ð½Ð°Ð¹Ð´ÐµÐ½.
+    echo Ïðåäóïðåæäåíèå: Ôàéë app.py íå íàéäåí.
 )
 
 echo.
-echo ÐÐ°Ð¶Ð¼Ð¸Ñ‚Ðµ Ð»ÑŽÐ±ÑƒÑŽ ÐºÐ»Ð°Ð²Ð¸ÑˆÑƒ Ð´Ð»Ñ Ð²Ñ‹Ñ…Ð¾Ð´Ð°...
+echo Íàæìèòå ëþáóþ êëàâèøó äëÿ âûõîäà...
 pause >nul
