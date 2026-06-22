@@ -307,4 +307,4 @@ This project is released under the **MIT License**. See `LICENSE` for details.
 - [Embedding](https://github.com/topics/embedding)
 
 ---
-© 2024 SCYTH-J. All rights reserved
+© 2026 SCYTH-J. All rights reserved
